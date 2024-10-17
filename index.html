@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Futuristic Portfolio</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Space Grotesk', sans-serif;
+        }
+
+        :root {
+            --primary-color: #00ff8c;
+            --dark-bg: #0a0a0a;
+            --darker-bg: #000000;
+            --gray-color: #333333;
+            --light-gray: #aaaaaa;
+            --glow-shadow: 0 0 10px var(--primary-color);
+        }
+
+        @keyframes gradient {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+            100% { transform: translateY(0px); }
+        }
+
+        @keyframes glitch {
+            0% { transform: translate(0); }
+            20% { transform: translate(-2px, 2px); }
+            40% { transform: translate(-2px, -2px); }
+            60% { transform: translate(2px, 2px); }
+            80% { transform: translate(2px, -2px); }
+            100% { transform: translate(0); }
+        }
+
+        body {
+            line-height: 1.6;
+            background-color: var(--dark-bg);
+            color: white;
+            overflow-x: hidden;
+        }
+
+        /* Futuristic Header */
+        header {
+            height: 100vh;
+            background: linear-gradient(45deg, #000000, #1a1a1a);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cyber-grid {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: 
+                linear-gradient(transparent 0%, rgba(0,255,140,0.1) 2%, transparent 5%),
+                linear-gradient(90deg, transparent 0%, rgba(0,255,140,0.1) 2%, transparent 5%);
+            background-size: 50px 50px;
+            animation: gradient 15s ease infinite;
+        }
+
+        .header-content {
+            position: relative;
+            z-index: 2;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 2rem;
+        }
+
+        .header-content h1 {
+            font-size: 5rem;
+            text-transform: uppercase;
+            letter-spacing: 10px;
+            margin-bottom: 1rem;
+            position: relative;
+            text-shadow: var(--glow-shadow);
+        }
+
+        .header-content h1:hover {
+            animation: glitch 0.5s infinite;
+        }
+
+        .header-content p {
+            font-size: 1.5rem;
+            color: var(--light-gray);
+            margin-bottom: 2rem;
+        }
+
+        /* Futuristic Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(0,0,0,0.8);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            border-bottom: 1px solid rgba(0,255,140,0.2);
+        }
+
+        nav ul {
+            display: flex;
+            justify-content: center;
+            list-style: none;
+            padding: 1rem;
+        }
+
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            padding: 0.5rem 1.5rem;
+            margin: 0 0.5rem;
+            border: 1px solid transparent;
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        nav ul li a:before {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 0;
+            left: 0;
+            background-color: var(--primary-color);
+            transition: width 0.3s ease;
+        }
+
+        nav ul li a:hover:before {
+            width: 100%;
+        }
+
+        nav ul li a:hover {
+            color: var(--primary-color);
+            text-shadow: var(--glow-shadow);
+        }
+
+        /* Futuristic Sections */
+        section {
+            padding: 5rem 2rem;
+            position: relative;
+        }
+
+        section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--primary-color), transparent);
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 3rem;
+            font-size: 2.5rem;
+            text-transform: uppercase;
+            letter-spacing: 5px;
+            color: var(--primary-color);
+            text-shadow: var(--glow-shadow);
+        }
+
+        /* Projects Grid */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .project-card {
+            background: rgba(51, 51, 51, 0.1);
+            border: 1px solid rgba(0,255,140,0.2);
+            border-radius: 10px;
+            overflow: hidden;
+            transition: all 0.3s;
+            backdrop-filter: blur(5px);
+        }
+
+        .project-card:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--glow-shadow);
+        }
+
+        .project-img {
+            width: 100%;
+            height: 200px;
+            background: url('/api/placeholder/400/200') center/cover;
+            position: relative;
+        }
+
+        .project-img::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, rgba(0,255,140,0.2), transparent);
+        }
+
+        .project-content {
+            padding: 1.5rem;
+        }
+
+        /* Skills Section */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .skill-card {
+            background: rgba(51, 51, 51, 0.1);
+            border: 1px solid rgba(0,255,140,0.2);
+            padding: 2rem;
+            text-align: center;
+            border-radius: 10px;
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .skill-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--glow-shadow);
+        }
+
+        .skill-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(0,255,140,0.1), transparent);
+            transform: rotate(45deg);
+            transition: all 0.5s;
+        }
+
+        .skill-card:hover::before {
+            animation: gradient 1.5s linear infinite;
+        }
+
+        /* Contact Form */
+        .contact-form {
+            max-width: 600px;
+            margin: 0 auto;
+            background: rgba(51, 51, 51, 0.1);
+            padding: 2rem;
+            border-radius: 10px;
+            border: 1px solid rgba(0,255,140,0.2);
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--primary-color);
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 0.75rem;
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(0,255,140,0.2);
+            color: white;
+            border-radius: 5px;
+            transition: all 0.3s;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: var(--glow-shadow);
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 1rem 2rem;
+            background: transparent;
+            color: var(--primary-color);
+            border: 1px solid var(--primary-color);
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .btn:hover {
+            background: var(--primary-color);
+            color: black;
+            box-shadow: var(--glow-shadow);
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--darker-bg);
+            color: var(--light-gray);
+            text-align: center;
+            padding: 2rem;
+            border-top: 1px solid rgba(0,255,140,0.2);
+        }
+
+        /* Floating Animation for Cards */
+        .project-card:nth-child(odd) {
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .project-card:nth-child(even) {
+            animation: float 5s ease-in-out infinite;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .header-content h1 {
+                font-size: 3rem;
+                letter-spacing: 5px;
+            }
+
+            nav ul {
+                flex-direction: column;
+            }
+
+            nav ul li {
+                margin: 0.5rem 0;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <ul>
+            <li><a href="#home">HOME</a></li>
+            <li><a href="#about">ABOUT</a></li>
+            <li><a href="#projects">PROJECTS</a></li>
+            <li><a href="#skills">SKILLS</a></li>
+            <li><a href="#contact">CONTACT</a></li>
+        </ul>
+    </nav>
+
+    <header id="home">
+        <div class="cyber-grid"></div>
+        <div class="header-content">
+            <h1>Sandi Ramadani</h1>
+            <p>WEB DEVELOPER | DESIGNER</p>
+            <a href="#projects" class="btn">EXPLORE MY WORK</a>
+        </div>
+    </header>
+
+    <section id="about">
+        <h2 class="section-title">ABOUT</h2>
+        <div class="about-content">
+            <p>A visionary developer pushing the boundaries of digital innovation. Specializing in creating futuristic web experiences that combine cutting-edge technology with stunning visual design.</p>
+        </div>
+    </section>
+
+    <section id="projects">
+        <h2 class="section-title">PROJECTS</h2>
+        <div class="projects-grid">
+            <div class="project-card">
+                <div class="project-img"></div>
+                <div class="project-content">
+                    <h3>CYBER INTERFACE</h3>
+                    <p>Next-gen user interface with neural network integration.</p>
+                </div>
+            </div>
+            <div class="project-card">
+                <div class="project-img"></div>
+                <div class="project-content">
+                    <h3>QUANTUM DASHBOARD</h3>
+                    <p>Real-time data visualization platform.</p>
+                </div>
+            </div>
+            <div class="project-card">
+                <div class="project-img"></div>
+                <div class="project-content">
+                    <h3>NEURAL SYNC</h3>
+                    <p>AI-powered project management system.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="skills">
+        <h2 class="section-title">SKILLS</h2>
+        <div class="skills-grid">
+            <div class="skill-card">
+                <h3>QUANTUM JS</h3>
+            </div>
+            <div class="skill-card">
+                <h3>CYBER CSS</h3>
+            </div>
+            <div class="skill-card">
+                <h3>NEURAL AI</h3>
+            </div>
+            <div class="skill-card">
+                <h3>DEEP REACT</h3>
+            </div>
+            <div class="skill-card">
+                <h3>META NODE</h3>
+            </div>
+            <div class="skill-card">
+                <h3>QUANTUM DB</h3>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact">
+        <h2 class="section-title">CONTACT</h2>
+        <div class="contact-form">
+            <form id="contactForm">
+                <div class="form-group">
+                    <label for="name">NAME</label>
+                    <input type="text" id="name" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">EMAIL</label>
+                    <input type="email" id="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="message">MESSAGE</label>
+                    <textarea id="message" rows="5" required></textarea>
+                </div>
+                <button type="submit" class="btn">SEND MESSAGE</button>
+            </form>
+        </div>
+    </section>
+
+    <footer>
+        <p>© 2024 CYBER DEV | BUILDING THE FUTURE</p>
+    </footer>
+    <style>
+        /* Add to existing CSS */
+        canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+    
+        /* Adjust all sections to work with canvas */
+        nav, header, section, footer {
+            position: relative;
+            z-index: 2;
+        }
+    </style>
+    
+    [Previous HTML code remains the same, add canvas element right after <body> tag:]
+    
+    <body>
+        <canvas id="particleCanvas"></canvas>
+        
+    [Rest of the previous HTML code]
+    
+    [Add this JavaScript code before the closing </body> tag:]
+    
+    <script>
+    // Particle System
+    const canvas = document.getElementById('particleCanvas');
+    const ctx = canvas.getContext('2d');
+    
+    // Set canvas size
+    function resizeCanvas() {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+    }
+    resizeCanvas();
+    window.addEventListener('resize', resizeCanvas);
+    
+    // Triangle particle class
+    class Triangle {
+        constructor() {
+            this.reset();
+        }
+    
+        reset() {
+            this.size = Math.random() * 3 + 1;
+            this.x = Math.random() * canvas.width;
+            this.y = Math.random() * canvas.height;
+            this.velX = (Math.random() - 0.5) * 0.5;
+            this.velY = (Math.random() - 0.5) * 0.5;
+            this.rotation = Math.random() * Math.PI * 2;
+            this.rotationSpeed = (Math.random() - 0.5) * 0.01;
+            this.opacity = Math.random() * 0.5 + 0.2;
+            this.color = '#00ff8c';
+        }
+    
+        update() {
+            this.x += this.velX;
+            this.y += this.velY;
+            this.rotation += this.rotationSpeed;
+    
+            // Wrap around screen
+            if (this.x < 0) this.x = canvas.width;
+            if (this.x > canvas.width) this.x = 0;
+            if (this.y < 0) this.y = canvas.height;
+            if (this.y > canvas.height) this.y = 0;
+        }
+    
+        draw() {
+            ctx.save();
+            ctx.translate(this.x, this.y);
+            ctx.rotate(this.rotation);
+            ctx.beginPath();
+            ctx.moveTo(-this.size, -this.size);
+            ctx.lineTo(this.size, -this.size);
+            ctx.lineTo(0, this.size);
+            ctx.closePath();
+            ctx.fillStyle = `rgba(0, 255, 140, ${this.opacity})`;
+            ctx.strokeStyle = `rgba(0, 255, 140, ${this.opacity + 0.1})`;
+            ctx.lineWidth = 0.5;
+            ctx.fill();
+            ctx.stroke();
+            ctx.restore();
+        }
+    }
+    
+    // Create particles
+    const particles = [];
+    const numParticles = 50; // Adjust number of particles
+    
+    for (let i = 0; i < numParticles; i++) {
+        particles.push(new Triangle());
+    }
+    
+    // Animation loop
+    function animate() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+    
+        // Update and draw particles
+        particles.forEach(particle => {
+            particle.update();
+            particle.draw();
+        });
+    
+        // Connect nearby particles with lines
+        for (let i = 0; i < particles.length; i++) {
+            for (let j = i + 1; j < particles.length; j++) {
+                const dx = particles[i].x - particles[j].x;
+                const dy = particles[i].y - particles[j].y;
+                const distance = Math.sqrt(dx * dx + dy * dy);
+    
+                if (distance < 100) { // Connection distance threshold
+                    ctx.beginPath();
+                    ctx.moveTo(particles[i].x, particles[i].y);
+                    ctx.lineTo(particles[j].x, particles[j].y);
+                    const opacity = (1 - distance / 100) * 0.2;
+                    ctx.strokeStyle = `rgba(0, 255, 140, ${opacity})`;
+                    ctx.stroke();
+                }
+            }
+        }
+    
+        requestAnimationFrame(animate);
+    }
+    
+    // Start animation
+    animate();
+    
+    // Mouse interaction
+    let mouseX = 0;
+    let mouseY = 0;
+    
+    canvas.addEventListener('mousemove', (e) => {
+        mouseX = e.clientX;
+        mouseY = e.clientY;
+    
+        // Add particle effect on mouse move
+        if (Math.random() > 0.8) { // 20% chance to create particle
+            const particle = new Triangle();
+            particle.x = mouseX;
+            particle.y = mouseY;
+            particle.velX = (Math.random() - 0.5) * 2;
+            particle.velY = (Math.random() - 0.5) * 2;
+            particles.push(particle);
+            
+            // Remove old particle to maintain performance
+            if (particles.length > numParticles + 20) {
+                particles.shift();
+            }
+        }
+    });
+    
+    // Previous smooth scrolling and form handling code remains the same...
+    
+    </script>
+    <script>
+        // Smooth scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Form handling with futuristic effect
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const message = document.getElementById('message').value;
+            
+            // Add glitch effect on submit
+            this.style.animation = '
